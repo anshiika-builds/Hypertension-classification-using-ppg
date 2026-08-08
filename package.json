@@ -1,0 +1,23 @@
+{
+  "name": "ppg-signal-classification-xai",
+  "version": "1.0.0",
+  "description": "Serene, minimal medical AI web application for PPG signal classification using MIMIC-IV dataset and Explainable AI (XAI).",
+  "main": "index.html",
+  "scripts": {
+    "start": "python server.py",
+    "dev": "python server.py"
+  },
+  "keywords": [
+    "photoplethysmography",
+    "ppg",
+    "mimic-iv",
+    "explainable-ai",
+    "xai",
+    "shap",
+    "random-forest",
+    "medical-ai",
+    "cardiovascular-risk"
+  ],
+  "author": "Antigravity AI",
+  "license": "MIT"
+}

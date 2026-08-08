@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PPG Signal Classification & XAI Dashboard | MIMIC-IV Medical AI</title>
+  <meta name="description" content="Serene, minimal frontend for Photoplethysmography (PPG) signal classification using MIMIC-IV dataset and Explainable AI (XAI).">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            serene: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+            },
+            lavender: {
+              50: '#faf5ff',
+              100: '#f3e8ff',
+              200: '#e9d5ff',
+              300: '#d8b4fe',
+              400: '#c084fc',
+              500: '#a855f7',
+              600: '#9333ea',
+            },
+            mint: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- React 18 & ReactDOM CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+  <!-- Babel for JSX compilation -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 dark:bg-[#0b1329] text-slate-900 dark:text-slate-100 min-h-screen selection:bg-sky-200 selection:text-sky-900 dark:selection:bg-sky-900 dark:selection:text-sky-100">
+  <!-- Canvas ambient pulse background -->
+  <canvas id="pulse-bg-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40 dark:opacity-30"></canvas>
+
+  <!-- React Root -->
+  <div id="root" class="relative z-10"></div>
+
+  <!-- Main App Script -->
+  <script type="text/babel" src="app.js"></script>
+
+  <!-- Background pulse animation script -->
+  <script>
+    (function initPulseCanvas() {
+      const canvas = document.getElementById('pulse-bg-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let points = [];
+      let phase = 0;
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        const isDark = document.documentElement.classList.contains('dark');
+        const colorPrimary = isDark ? 'rgba(56, 189, 248, 0.15)' : 'rgba(2, 132, 199, 0.08)';
+        const colorSecondary = isDark ? 'rgba(192, 132, 252, 0.12)' : 'rgba(147, 51, 234, 0.06)';
+
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+
+        for (let x = 0; x < width; x += 15) {
+          // PPG waveform equation approximation
+          const baseSine = Math.sin((x * 0.006) + phase);
+          const pulse = Math.pow(Math.sin((x * 0.012) + phase * 0.8), 6) * Math.sin(x * 0.003);
+          const y = (height * 0.35) + (baseSine * 25) - (pulse * 40);
+
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+
+        ctx.strokeStyle = colorPrimary;
+        ctx.stroke();
+
+        // Second subtle wave layer
+        ctx.beginPath();
+        for (let x = 0; x < width; x += 15) {
+          const baseSine = Math.sin((x * 0.004) - phase * 0.7);
+          const pulse = Math.pow(Math.cos((x * 0.008) + phase * 0.5), 4) * 30;
+          const y = (height * 0.75) + (baseSine * 20) + (pulse * 0.5);
+
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = colorSecondary;
+        ctx.stroke();
+
+        phase += 0.012;
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    })();
+  </script>
+</body>
+</html>
