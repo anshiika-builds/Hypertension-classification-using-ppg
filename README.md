@@ -4,9 +4,19 @@
 [![Dataset](https://img.shields.io/badge/Dataset-MIMIC--IV%20v2.2-sky)](https://physionet.org/content/mimiciv/)
 [![Model](https://img.shields.io/badge/Classifier-Random%20Forest-purple)](train_rf.py)
 [![AUC-ROC](https://img.shields.io/badge/AUC--ROC-0.946-emerald)](train_rf.py)
-[![Deployed on Vercel](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel)](vercel.json)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fanshiika-builds%2Fppg-signal-classification-xai)
 
 A serene, minimal, and seraphic frontend interface for medical AI photoplethysmography (PPG) signal classification using the **MIMIC-IV** dataset, enhanced with **Explainable AI (XAI)** interpretability (SHAP, feature attributions, and what-if sensitivity analysis).
+
+---
+
+## ⚡ Direct One-Click Vercel Deployment
+
+Click the button below to deploy this repository directly to Vercel in 1-click:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fanshiika-builds%2Fppg-signal-classification-xai)
+
+Direct Link: **`https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fanshiika-builds%2Fppg-signal-classification-xai`**
 
 ---
 
@@ -85,41 +95,26 @@ python train_rf.py
 
 ## 🚀 How to Deploy on Vercel
 
-Deploying this application to **Vercel** is instant and free!
+### Method 1: Direct 1-Click Deploy Link (Fastest)
 
-### Method A: Via GitHub Integration (Recommended)
-
-1. **Initialize Git & Push to GitHub**:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit: PPG Signal Classification & XAI Dashboard"
-   git branch -M main
-   git remote add origin https://github.com/YOUR_USERNAME/ppg-signal-classification-xai.git
-   git push -u origin main
-   ```
-
-2. **Deploy on Vercel**:
-   - Go to [Vercel Dashboard](https://vercel.com/dashboard) and click **"Add New" -> "Project"**.
-   - Select your GitHub repository `ppg-signal-classification-xai`.
-   - Vercel will automatically detect `vercel.json` and set the Framework Preset to **Other** / **Static Site**.
-   - Click **Deploy**!
-   - Your site will be live at `https://ppg-signal-classification-xai.vercel.app`.
+Click here: **[Deploy on Vercel](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fanshiika-builds%2Fppg-signal-classification-xai)**
 
 ---
 
-### Method B: Via Vercel CLI
+### Method 2: Via GitHub Integration
 
-1. Install Vercel CLI:
+1. **Push code to your GitHub repo**:
    ```bash
-   npm install -g vercel
+   git add .
+   git commit -m "Update links and Vercel configuration"
+   git push -u origin main
    ```
 
-2. Run `vercel` in your project folder:
-   ```bash
-   vercel
-   ```
-   Follow the prompts and choose `y` to deploy!
+2. **Import on Vercel**:
+   - Open [Vercel Dashboard](https://vercel.com/dashboard) and click **"Add New" -> "Project"**.
+   - Select your GitHub repository **`anshiika-builds/ppg-signal-classification-xai`**.
+   - Click **Deploy**!
+   - Your site will be live at `https://ppg-signal-classification-xai.vercel.app`.
 
 ---
 

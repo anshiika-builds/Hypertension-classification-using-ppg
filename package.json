@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "Serene, minimal medical AI web application for PPG signal classification using MIMIC-IV dataset and Explainable AI (XAI).",
   "main": "index.html",
+  "homepage": "https://ppg-signal-classification-xai.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anshiika-builds/ppg-signal-classification-xai.git"
+  },
   "scripts": {
     "start": "python server.py",
     "dev": "python server.py"
@@ -18,6 +23,6 @@
     "medical-ai",
     "cardiovascular-risk"
   ],
-  "author": "Antigravity AI",
+  "author": "anshiika-builds",
   "license": "MIT"
 }
