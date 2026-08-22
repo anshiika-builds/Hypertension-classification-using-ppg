@@ -48,7 +48,7 @@
     }
   </script>
 
-  <!-- React 18 & ReactDOM CDN (cdnjs for max reliability) -->
+  <!-- React 18 & ReactDOM CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 
@@ -71,8 +71,8 @@
   <!-- React Root -->
   <div id="root" class="relative z-10"></div>
 
-  <!-- Main App Script -->
-  <script type="text/babel" src="app.js"></script>
+  <!-- Main App Script with explicit Babel presets -->
+  <script type="text/babel" data-presets="env,react" src="app.js"></script>
 
   <!-- Background pulse animation script -->
   <script>
