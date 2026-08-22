@@ -48,18 +48,18 @@
     }
   </script>
 
-  <!-- React 18 & ReactDOM CDN -->
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <!-- React 18 & ReactDOM CDN (cdnjs for max reliability) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 
-  <!-- Babel for JSX compilation -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- Babel Standalone for JSX compilation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
 
   <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js"></script>
 
   <!-- Chart.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="styles.css">
@@ -81,7 +81,6 @@
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       let width, height;
-      let points = [];
       let phase = 0;
 
       function resize() {
@@ -102,7 +101,6 @@
         ctx.beginPath();
 
         for (let x = 0; x < width; x += 15) {
-          // PPG waveform equation approximation
           const baseSine = Math.sin((x * 0.006) + phase);
           const pulse = Math.pow(Math.sin((x * 0.012) + phase * 0.8), 6) * Math.sin(x * 0.003);
           const y = (height * 0.35) + (baseSine * 25) - (pulse * 40);
@@ -114,7 +112,6 @@
         ctx.strokeStyle = colorPrimary;
         ctx.stroke();
 
-        // Second subtle wave layer
         ctx.beginPath();
         for (let x = 0; x < width; x += 15) {
           const baseSine = Math.sin((x * 0.004) - phase * 0.7);
