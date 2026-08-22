@@ -9,6 +9,7 @@
     "url": "https://github.com/anshiika-builds/ppg-signal-classification-xai.git"
   },
   "scripts": {
+    "build": "echo 'Static site ready'",
     "start": "python server.py",
     "dev": "python server.py"
   },
