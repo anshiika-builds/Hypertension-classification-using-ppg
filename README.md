@@ -184,8 +184,8 @@ ppg_vt/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/anshika-builds/Hypertension-classification-using-ppg-signals.git
-cd Hypertension-classification-using-ppg-signals
+git clone https://github.com/anshiika-builds/Hypertension-classification-using-ppg.git
+cd Hypertension-classification-using-ppg
 ```
 
 ### 2. Install Python Dependencies
