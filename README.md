@@ -1,122 +1,245 @@
 # 🫀 PPG Signal Classification & XAI Dashboard
+### Non-Invasive Cardiovascular Risk Evaluation & Model Interpretability using MIMIC-IV Dataset
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Dataset](https://img.shields.io/badge/Dataset-MIMIC--IV%20v2.2-sky)](https://physionet.org/content/mimiciv/)
-[![Model](https://img.shields.io/badge/Classifier-Random%20Forest-purple)](train_rf.py)
-[![AUC-ROC](https://img.shields.io/badge/AUC--ROC-0.946-emerald)](train_rf.py)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fanshiika-builds%2Fppg-signal-classification-xai)
-
-A serene, minimal, and seraphic frontend interface for medical AI photoplethysmography (PPG) signal classification using the **MIMIC-IV** dataset, enhanced with **Explainable AI (XAI)** interpretability (SHAP, feature attributions, and what-if sensitivity analysis).
+> **Deployment Status:** 🚀 **Coming Soon** *(Local setup available below)*  
+> **Project Context:** Hackathon & Academic Portfolio Project focused on Explainable AI (XAI) in Medical Diagnostics.
 
 ---
 
-## ⚡ Direct One-Click Vercel Deployment
+## 📌 Overview
 
-Click the button below to deploy this repository directly to Vercel in 1-click:
+The **PPG Signal Classification & XAI Dashboard** is a medical AI decision support prototype designed to evaluate cardiovascular risk—specifically arterial stiffness and hypertension stages—from non-invasive **Photoplethysmography (PPG)** pulse wave signals.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fanshiika-builds%2Fppg-signal-classification-xai)
-
-Direct Link: **`https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fanshiika-builds%2Fppg-signal-classification-xai`**
+Trained on synchronized PPG and arterial blood pressure recordings from the **MIMIC-IV Clinical Database**, the platform combines machine learning classification (**Random Forest**) with **Explainable AI (XAI)** techniques (SHAP values, feature attributions, and temporal signal segment heatmaps). The goal is to bridge the gap between complex physiological signal processing and transparent, trust-worthy clinical decision-making.
 
 ---
 
-## 🌟 Visual & Design Principles
+## 🎯 Problem Statement
 
-- **Seraphic Medical Aesthetic**: Built with soft off-whites, sky blue (`#0284c7`), pastel lavender (`#9333ea`), mint emerald (`#059669`), and calm ambient glow effects.
-- **Glassmorphism & Micro-Animations**: Backdrop blur (`backdrop-filter: blur(16px)`), ultra-smooth rounded cards (`rounded-2xl`), ambient pulse wave canvas, and subtle hover elevation.
-- **Dual Serene Mode**: Toggle effortlessly between **Serene Light Mode** and **Deep Navy Dark Mode**.
+Cardiovascular diseases (CVDs) remain a leading cause of global mortality. While Photoplethysmography (PPG) optical sensors (found in pulse oximeters and wearables) offer a low-cost, non-invasive method for continuous physiological monitoring, traditional diagnostics present two major challenges:
 
----
-
-## 🔥 Key Features
-
-1. **Preset MIMIC-IV Clinical Records & CSV Upload**:
-   - 4 pre-loaded MIMIC-IV patient cases (*Stage 2 Hypertension*, *Normotensive Baseline*, *Prehypertension Borderline*, *Stage 1 Hypertension*).
-   - Drag-and-drop file uploader for custom optical PPG waveform CSV datasets.
-
-2. **3-Stage Waveform Processing Pipeline**:
-   - **Stage 1 (Raw Signal)**: Optical signal with respiratory baseline wander and motion artifacts.
-   - **Stage 2 (Filtered Signal)**: 4th-order 0.5–8.0 Hz Butterworth bandpass filtered signal.
-   - **Stage 3 (Delineated Beat)**: Extracted single-beat fiducial landmarks for Systolic Peak ($P_1$), Dicrotic Notch ($V$), and Diastolic Peak ($P_2$).
-   - Live stream play/pause playback animation.
-
-3. **Explainable AI (XAI) Panel**:
-   - **Automated Human-Readable Summary**: Translates feature anomalies into clinical physiological explanations.
-   - **Global Feature Importance**: Bar chart displaying Gini importance weights (Augmentation Index, Stiffness Index, Pulse Transit Time).
-   - **Local SHAP Contribution Waterfall Plot**: Patient-specific waterfall plot displaying feature impact relative to baseline $E[f(x)] = 0.32$.
-   - **Temporal Waveform Attribution Map**: Visualizes signal upstroke, dicrotic notch, and diastolic decay SHAP impacts.
-   - **Interactive "What-If" Sensitivity Simulator**: Sliders for Augmentation Index, Stiffness Index, and Pulse Transit Time that recalculate predicted hypertension risk live!
-
-4. **Model Performance & Nested CV**:
-   - **ROC-AUC Curve** chart ($AUC = 0.946$).
-   - **Pooled Confusion Matrix** heatmap and 5-Fold Stratified Group Cross-Validation metrics summary matching `train_rf.py`.
+1. **Black-Box AI Barrier**: Standard deep learning and machine learning models predict risk scores without explaining *why* a specific prediction was reached, limiting clinical trust and adoption.
+2. **Signal Morphological Complexity**: Arterial reflections, baseline wander, and subtle pulse wave fiducial variations ($P_1$ systolic peak, $V$ dicrotic notch, $P_2$ diastolic peak) require rigid, leakage-free cross-validation to generalize across diverse patient demographics.
 
 ---
 
-## 📁 Repository Structure
+## 💡 Our Solution
 
+Our platform addresses these challenges by introducing an end-to-end explainable workflow:
+
+* **Leakage-Free Machine Learning**: A Random Forest classifier trained with **5-Fold Stratified Group Cross-Validation** (grouped by patient `subject_id`) to ensure models generalize to unseen subjects without data leakage.
+* **Morphological Signal Segmentation**: A 3-stage processing pipeline that filters raw PPG signals (0.5–8.0 Hz bandpass) and delineates key pulse wave landmarks.
+* **Multilevel Explainable AI (XAI)**: Global feature importance (Gini indices), patient-specific **SHAP (SHapley Additive exPlanations)** waterfall plots, and temporal waveform segment attribution maps highlighting positive and negative risk contributors.
+* **Interactive Sensitivity Analysis**: A prototype "What-If" simulator allowing clinicians to adjust physiological parameters (e.g., Augmentation Index, Stiffness Index) and observe real-time model sensitivity.
+
+---
+
+## 🎨 UI / Design Preview
+
+> ⚠️ **Design Disclaimer**: The screens below represent the **proposed UI/UX concept and prototype dashboard design** of the platform. They are design mockups created to demonstrate the intended user experience, visual signal processing flow, and explainable AI insights.
+
+<br />
+
+### 1. Hero Overview & Telemetry Widget — UI Concept
+Shows the primary telemetry dashboard layout, dataset badges, key metric highlights, and live pulse stream preview.
+
+![Hero Overview - Mockup](docs/screenshots/01_hero_header.png)
+
+---
+
+### 2. Patient Case Selection & Signal Processing Pipeline — Proposed UI
+Demonstrates patient record switching, custom CSV drag-and-drop upload zone, and multi-stage signal filtering tabs (Raw, Filtered, Delineated Beat).
+
+![Patient Selection Pipeline - Mockup](docs/screenshots/02_patient_selection_pipeline.png)
+
+---
+
+### 3. Diagnostic Output & Extracted Hemodynamic Metrics — Design Preview
+Illustrates the animated risk confidence meter alongside extracted physiological indicators (Augmentation Index, Stiffness Index, Pulse Transit Time, Crest Time).
+
+![Diagnostic Hemodynamics - Mockup](docs/screenshots/03_diagnostic_hemodynamics.png)
+
+---
+
+### 4. Explainable AI (XAI) & SHAP Attribution Panel — Prototype View
+Features the automated natural language explanation, global Gini feature importances, local SHAP waterfall contribution chart, and temporal signal segment attribution heatmap.
+
+![XAI & SHAP Attribution - Mockup](docs/screenshots/04_xai_shap_attribution.png)
+
+---
+
+### 5. Model Validation & ROC-AUC Performance — Proposed View
+Visualizes the 5-Fold Stratified Group CV ROC curve ($AUC = 0.946$), pooled 2x2 confusion matrix heatmap, and detailed clinical evaluation metrics.
+
+![Model Validation & ROC - Mockup](docs/screenshots/05_model_validation_roc.png)
+
+---
+
+## ✨ Key Features
+
+| Category | Feature | Description | Status |
+| :--- | :--- | :--- | :--- |
+| **Machine Learning** | **Stratified Group CV** | 5-Fold Group K-Fold Random Forest training pipeline preventing subject leakage (`train_rf.py`) | Implemented |
+| **Signal Processing** | **3-Stage Filtering** | Raw optical signal, 4th-order 0.5–8.0 Hz bandpass filter, and single-beat peak delineation | Implemented |
+| **Feature Extraction** | **Hemodynamic Metrics** | Automated computation of Augmentation Index (AIx), Stiffness Index (SI), and Pulse Transit Time (PTT) | Implemented |
+| **Explainable AI** | **SHAP & Attribution** | Local SHAP waterfall charts, global feature importance, and temporal segment heatmaps | Implemented |
+| **Interactive UI** | **What-If Simulator** | Real-time slider controls for parameter sensitivity testing and risk re-calculation | Prototype UI |
+| **Data Ingestion** | **CSV File Upload** | Drag-and-drop ingestion parser for MIMIC-IV optical PPG signal files | Prototype UI |
+
+---
+
+## ⚙️ How It Works
+
+```mermaid
+flowchart TD
+    A["Raw Optical PPG Signal (125 Hz)"] --> B["Bandpass Filter (0.5 – 8.0 Hz)"]
+    B --> C["Fiducial Landmark Delineation (P₁, V, P₂)"]
+    C --> D["Feature Extraction (AIx, SI, PTT, Crest Time)"]
+    D --> E["Random Forest Classifier"]
+    E --> F["Diagnostic Prediction (Normotensive vs Hypertensive)"]
+    E --> G["SHAP Explainer & Temporal Segment Attribution"]
+    F & G --> H["Serene Medical AI Dashboard"]
 ```
+
+1. **Signal Acquisition**: Optical PPG waveform data sampled at 125 Hz from MIMIC-IV recordings.
+2. **Preprocessing**: 4th-order Butterworth bandpass filter removes baseline wander (respiration) and high-frequency motion artifacts.
+3. **Feature Extraction**: Algorithms delineate systolic peaks ($P_1$), dicrotic notches ($V$), and diastolic peaks ($P_2$), deriving arterial stiffness indicators.
+4. **Model Inference**: Random Forest ensemble classifies cardiovascular risk category (Normotensive, Prehypertension, Stage 1/2 Hypertension).
+5. **XAI Interpretability**: SHAP attribution values quantify feature contributions relative to population baseline expectation $E[f(x)] = 0.32$.
+
+---
+
+## 🛠️ Tech Stack
+
+* **Machine Learning & Core Pipeline**: Python 3.9+, Scikit-Learn, Pandas, NumPy, Joblib
+* **Frontend Interface**: React 18, Tailwind CSS, Chart.js, Lucide Icons, HTML5 Canvas
+* **Dataset**: PhysioNet MIMIC-IV Clinical Database (Synchronized PPG & ABP)
+* **Local Development Server**: Python `http.server` (`server.py`)
+
+---
+
+## 🏗️ System Architecture
+
+```mermaid
+flowchart LR
+    subgraph Data Layer
+        MIMIC["MIMIC-IV Dataset"]
+        CSV["Custom PPG CSV File"]
+    end
+
+    subgraph Analytics & ML Engine
+        Preprocess["Signal Filtering (0.5 - 8.0 Hz)"]
+        FeatureEng["Hemodynamic Feature Extractor"]
+        RF["Random Forest Pipeline (Scaler + RF)"]
+        XAI["SHAP & Gini Explainer"]
+    end
+
+    subgraph Frontend Dashboard Concept
+        UI["React 18 + Tailwind Interface"]
+        Charts["Chart.js Signal & XAI Visualizers"]
+        Sim["What-If Sensitivity Simulator"]
+    end
+
+    MIMIC --> Preprocess
+    CSV --> Preprocess
+    Preprocess --> FeatureEng --> RF --> XAI
+    RF --> UI
+    XAI --> Charts
+    Sim --> UI
+```
+
+---
+
+## 📂 Project Structure
+
+```text
 ppg_vt/
-├── index.html        # Main HTML5 entry point (React 18 + Tailwind + Chart.js)
-├── app.js            # Complete React application logic & XAI visualizers
-├── styles.css        # Serene theme CSS variables, glassmorphism, & dark mode
-├── server.py         # Python local server launcher (http://localhost:8000)
-├── train_rf.py       # Python nested Stratified Group K-Fold Random Forest trainer
-├── vercel.json       # Vercel static deployment configuration
-├── package.json      # Node package manifest
-├── requirements.txt  # Python ML dependencies
-├── LICENSE           # MIT open source license
-└── README.md         # Documentation & deployment guide
+├── docs/
+│   └── screenshots/              # Mock UI dashboard concepts & design previews
+│       ├── 01_hero_header.png
+│       ├── 02_patient_selection_pipeline.png
+│       ├── 03_diagnostic_hemodynamics.png
+│       ├── 04_xai_shap_attribution.png
+│       └── 05_model_validation_roc.png
+├── index.html                    # Main HTML5 entry point (React 18 + Tailwind + Chart.js)
+├── app.js                        # React application logic, signal visualizers, & XAI panel
+├── styles.css                    # Custom serene design tokens, glassmorphism, & dark mode
+├── server.py                     # Python local development web server launcher
+├── train_rf.py                   # Python Nested Stratified Group K-Fold Random Forest script
+├── sample_ppg_waveform.csv       # Sample 125 Hz MIMIC-IV optical PPG signal demo file
+├── requirements.txt              # Python machine learning dependencies
+├── package.json                  # Node metadata & local dev scripts
+├── vercel.json                   # Static deployment configuration
+├── .gitignore                    # Git ignore file
+├── LICENSE                       # MIT Open Source License
+└── README.md                     # Documentation & presentation guide
 ```
 
 ---
 
-## 💻 Local Quickstart
+## 💻 Getting Started
 
-### Option 1: Using Python HTTP Server (Zero Install)
-Simply run the included server launcher:
+### Prerequisites
+* Python 3.8 or higher installed on your system.
 
+### 1. Clone the Repository
 ```bash
-python server.py
+git clone https://github.com/anshiika-builds/ppg-signal-classification-xai.git
+cd ppg-signal-classification-xai
 ```
-Open **`http://localhost:8000`** in your browser.
 
----
-
-### Option 2: Train Random Forest Model (Python ML Pipeline)
-To train the nested cross-validation Random Forest classifier locally:
-
+### 2. Install Python Dependencies
 ```bash
 pip install -r requirements.txt
+```
+
+### 3. Run Model Training (Optional)
+To execute the nested Stratified Group Cross-Validation Random Forest trainer:
+```bash
 python train_rf.py
 ```
 
+### 4. Launch Local Dashboard Interface
+To run the local development server:
+```bash
+python server.py
+```
+Open your browser at: **`http://localhost:8000`**
+
 ---
 
-## 🚀 How to Deploy on Vercel
+## 🚀 Deployment Status
 
-### Method 1: Direct 1-Click Deploy Link (Fastest)
-
-Click here: **[Deploy on Vercel](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fanshiika-builds%2Fppg-signal-classification-xai)**
+> **Current Status:** Deployment Coming Soon  
+> The application is currently configured for local execution and research prototyping. Cloud deployment instructions (e.g. Vercel) will be published upon final hosting rollout.
 
 ---
 
-### Method 2: Via GitHub Integration
+## 🎥 Demo
 
-1. **Push code to your GitHub repo**:
-   ```bash
-   git add .
-   git commit -m "Update links and Vercel configuration"
-   git push -u origin main
-   ```
+> A live public demonstration and recorded video walkthrough will be added following cloud deployment.
 
-2. **Import on Vercel**:
-   - Open [Vercel Dashboard](https://vercel.com/dashboard) and click **"Add New" -> "Project"**.
-   - Select your GitHub repository **`anshiika-builds/ppg-signal-classification-xai`**.
-   - Click **Deploy**!
-   - Your site will be live at `https://ppg-signal-classification-xai.vercel.app`.
+---
+
+## 📍 Project Status & Transparency
+
+| Component | Status | Details |
+| :--- | :--- | :--- |
+| **Random Forest Model** | **Implemented** | Nested Stratified Group K-Fold CV pipeline in `train_rf.py` |
+| **Signal Processing & XAI** | **Implemented** | 3-stage waveform filtering, peak delineation, and SHAP logic |
+| **Dashboard UI** | **Prototype / UI Concept** | React 18 interface demonstration (`app.js`) with design previews |
+| **Cloud Deployment** | **Planned** | Hosting rollout currently in preparation |
+
+---
+
+## 🔮 Future Scope
+
+* **Wearable Hardware Integration**: Direct Bluetooth Low Energy (BLE) stream ingestion from PPG sensors (e.g. Empatica E4, smartwatch optical sensors).
+* **Deep Learning Expansion**: Hybrid 1D-CNN + LSTM architectures for direct raw waveform representation learning.
+* **Multi-Class Cardiovascular Anomaly Detection**: Expanding diagnostic scope to include Arrhythmia, Atrial Fibrillation, and Arterial Stiffness grading.
 
 ---
 
 ## 📄 License
+
 This project is licensed under the [MIT License](LICENSE).
